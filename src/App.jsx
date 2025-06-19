@@ -1,16 +1,24 @@
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { supabaseClient,  deleteProduit, insertProduits } from './lib/supabase.js';
+import Tabs from './components/Tabs.jsx';
+import 'bulma/css/bulma.min.css';
+import Hypercacher from './components/Hypercacher.jsx';
+import Auchan from './components/Auchan.jsx';
+import Liddle from './components/Liddle.jsx';
+
 
 function Item({ name, onRemove }) {
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '300px' }}>
+        <div className="box is-flex is-justify-content-space-between is-align-items-center">
             <span>{name}</span>
-            <button onClick={onRemove}>Supprimer</button>
+            <button className="button is-danger is-small" onClick={onRemove}>Supprimer</button>
         </div>
     );
 }
 
-function App() {
+
+function Home() {
     const [produits, setProduits] = useState([]);
     const [newProduct, setNewProduit] = useState('');
     const [error, setError] = useState(null);
@@ -56,14 +64,22 @@ function App() {
             console.error('Erreur lors de la suppression:', error);
             setError(error.message);
         } else {
-            setProduits(produits.filter((produit) => produit.id !== id));
+            const updatedProduits = produits.filter((produit) => produit.id !== id);
+            setProduits(updatedProduits);
+
+            if (updatedProduits.length === 0) {
+                setError('Aucun produit restant dans la liste')
+            }
+            else {
+                setError(null);
+            }
         }
     };
 
     return (
-        <div>
-            <h1>Liste des produits</h1>
-            {error && <p style={{ color: 'red' }}>Erreur : {error}</p>}
+        <div className="container is-fullheight">
+            <h1 className="title has-text-centered">Liste des produits</h1>
+            {error && <p className="notification is-danger" style={{ color: 'black' }}>{error}</p>}
             <ul>
                 {produits.map((produit) => (
                     <li key={produit.id}>
@@ -71,16 +87,42 @@ function App() {
                     </li>
                 ))}
             </ul>
-            <div>
-                <input
+            <div className={"field"}>
+                <div className={"control"}>
+                <input className={"input"}
                     type="text"
                     placeholder="Nom du produit"
                     value={newProduct}
                     onChange={(e) => setNewProduit(e.target.value)}
                 />
-                <button onClick={handleAddProduct}>Ajouter</button>
+                </div>
+                <button className="button is-primary mt-2" onClick={handleAddProduct}>Ajouter</button>
             </div>
         </div>
+    );
+}
+
+// Composant principal de l'application
+function App() {
+    const tabs = ['Hypercacher', 'Auchan', 'Liddle'];
+
+    return (
+        <Router>
+            <div className="is-flex is-flex-direction-column" style={{ minHeight: '100vh' }}>
+                <Tabs tabs={tabs} />
+
+                <div className="section is-flex-grow-1">
+                    <div className="container">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/hypercacher" element={<Hypercacher />} />
+                            <Route path="/auchan" element={<Auchan />} />
+                            <Route path="/liddle" element={<Liddle />} />
+                        </Routes>
+                    </div>
+                </div>
+            </div>
+        </Router>
     );
 }
 

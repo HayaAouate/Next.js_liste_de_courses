@@ -7,3 +7,7 @@ npm run dev
 npm install @faker-js/faker
 
 ```
+
+# Creation de route
+```bash 
+ npm install react-router-dom

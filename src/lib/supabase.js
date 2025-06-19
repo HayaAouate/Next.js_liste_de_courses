@@ -69,6 +69,19 @@ export async function deleteProduit(id) {
         console.error('Erreur lors de la suppression du produit:', error);
         return null;
     }
+    //verif di des produits restent dans la base de données
+    const{ data: remainingProduits, error: fetchError } = await supabaseClient
+        .from('produits')
+        .select('*');
+
+    if (fetchError) {
+        console.log('Erreur lors de la verification des produits restants:', fetchError);
+        return {error: 'Erreur lors de la verification des produits restants'};
+    }
+    if (!remainingProduits || remainingProduits.length === 0) {
+        console.log('Aucun produit restant dans la liste');
+        return { message: 'Aucun produit restant dans la liste' };
+    }
     return data;
 }
 
