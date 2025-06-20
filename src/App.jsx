@@ -59,25 +59,26 @@ function Home() {
     };
 
     const handleRemove = async (id) => {
-        const { error } = await deleteProduit(id);
-        if (error) {
-            console.error('Erreur lors de la suppression:', error);
-            setError(error.message);
-        } else {
-            const updatedProduits = produits.filter((produit) => produit.id !== id);
-            setProduits(updatedProduits);
-
-            if (updatedProduits.length === 0) {
-                setError('Aucun produit restant dans la liste')
-            }
-            else {
-                setError(null);
-            }
+        const result = await deleteProduit(id);
+        if (result && result.error) {
+            console.error('Erreur lors de la suppression:', result.error);
+            setError(result.error.message || 'Erreur lors de la suppression');
+            return;
         }
-    };
+        
+        // Mise à jour de la liste des produits après suppression réussie
+        const updatedProduits = produits.filter((produit) => produit.id !== id);
+        setProduits(updatedProduits);
+
+        if (updatedProduits.length === 0) {
+            setError('Aucun produit restant dans la liste');
+        } else {
+            setError(null); // Réinitialiser l'erreur si tout s'est bien passé
+        }
+        }
 
     return (
-        <div className="container is-fullheight">
+        <div className={"container"}>
             <h1 className="title has-text-centered">Liste des produits</h1>
             {error && <p className="notification is-danger" style={{ color: 'black' }}>{error}</p>}
             <ul>
@@ -108,18 +109,16 @@ function App() {
 
     return (
         <Router>
-            <div className="is-flex is-flex-direction-column" style={{ minHeight: '100vh' }}>
+            <div className="container mt-4">
                 <Tabs tabs={tabs} />
 
-                <div className="section is-flex-grow-1">
-                    <div className="container">
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/hypercacher" element={<Hypercacher />} />
-                            <Route path="/auchan" element={<Auchan />} />
-                            <Route path="/liddle" element={<Liddle />} />
-                        </Routes>
-                    </div>
+                <div className="section">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/hypercacher" element={<Hypercacher />} />
+                        <Route path="/auchan" element={<Auchan />} />
+                        <Route path="/liddle" element={<Liddle />} />
+                    </Routes>
                 </div>
             </div>
         </Router>

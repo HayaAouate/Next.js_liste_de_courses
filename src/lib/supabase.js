@@ -67,7 +67,7 @@ export async function deleteProduit(id) {
 
     if (error) {
         console.error('Erreur lors de la suppression du produit:', error);
-        return null;
+        return { error };
     }
     //verif di des produits restent dans la base de données
     const{ data: remainingProduits, error: fetchError } = await supabaseClient
