@@ -105,6 +105,7 @@ function Home() {
 
 // Composant principal de l'application
 // Supprimer mon issue en cli par un commit
+// .
 function App() {
     const tabs = ['Hypercacher', 'Auchan', 'Liddle'];
 
