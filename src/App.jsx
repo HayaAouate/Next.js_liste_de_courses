@@ -104,18 +104,14 @@ function Home() {
 }
 
 // Composant principal de l'application
-// Supprimer mon issue en cli par un commit
-// .
-//.
 function App() {
     const tabs = ['Hypercacher', 'Auchan', 'Liddle'];
 
     return (
         <Router>
-            <div className="container mt-4">
+            <div className="container is-fluid p-0" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Tabs tabs={tabs} />
-
-                <div className="section">
+                <div className="section p-4" style={{ flex: 1, overflow: 'auto' }}>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/hypercacher" element={<Hypercacher />} />
