@@ -38,13 +38,16 @@ export async function getCheapestProducts(storeName) {
                     );
                     
                     // Vérifier si le prix actuel est le meilleur prix
-                    const isCheapest = currentPrice.prix <= cheapestPrice.prix;
+                    const isCheapest = Math.abs(currentPrice.prix - cheapestPrice.prix) < 0.01; // Tolérance pour les arrondis
                     
-                    productsInStore.push({
-                        ...product,
-                        price: currentPrice.prix,
-                        isCheapest
-                    });
+                    // Ne garder que les produits avec le meilleur prix
+                    if (isCheapest) {
+                        productsInStore.push({
+                            ...product,
+                            price: currentPrice.prix,
+                            isCheapest: true
+                        });
+                    }
                 }
             }
         });

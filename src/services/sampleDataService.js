@@ -11,6 +11,7 @@ const SAMPLE_PRODUCTS = [
         volume: 1,
         categorie: 'Fruits',
         prix: {
+            'Lidl': 1.89,
             'Liddle': 1.99,
             'Auchan': 2.49,
             'Hypercacher': 2.99
@@ -24,6 +25,7 @@ const SAMPLE_PRODUCTS = [
         volume: 1,
         categorie: 'Fruits',
         prix: {
+            'Lidl': 2.29,
             'Liddle': 2.49,
             'Auchan': 2.99,
             'Hypercacher': 3.49
@@ -37,6 +39,7 @@ const SAMPLE_PRODUCTS = [
         volume: 1,
         categorie: 'Fruits',
         prix: {
+            'Lidl': 2.79,
             'Liddle': 2.99,
             'Auchan': 3.49,
             'Hypercacher': 3.99
@@ -47,7 +50,7 @@ const SAMPLE_PRODUCTS = [
 export async function addSampleData() {
     try {
 
-        const storeNames = ['Liddle', 'Auchan', 'Hypercacher'];
+        const storeNames = ['Lidl', 'Liddle', 'Auchan', 'Hypercacher'];
         const { data: existingStores } = await supabaseClient
             .from('enseignes')
             .select('*')
