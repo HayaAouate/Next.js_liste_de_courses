@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { createClient } from '@supabase/supabase-js';
-import { faker } from '@faker-js/faker/locale/fr';
+import { faker } from '@faker-js/faker';
 
 // Vérification des variables d'environnement
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;

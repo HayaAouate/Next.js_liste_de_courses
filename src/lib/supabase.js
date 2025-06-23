@@ -8,7 +8,18 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 // Utilisation d'un singleton pour éviter plusieurs instances
-const supabaseClient = createClient(supabaseUrl, supabaseKey);
+// Configuration des options globales pour inclure les en-têtes d'autorisation
+const supabaseOptions = {
+    global: {
+        headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`
+        }
+    }
+};
+
+// Création du client Supabase avec les options
+const supabaseClient = createClient(supabaseUrl, supabaseKey, supabaseOptions);
 
 export  default supabaseClient ;
 export { supabaseClient };

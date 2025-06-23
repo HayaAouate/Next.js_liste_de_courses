@@ -6,6 +6,7 @@ import 'bulma/css/bulma.min.css';
 import Hypercacher from './components/Hypercacher.jsx';
 import Auchan from './components/Auchan.jsx';
 import Liddle from './components/Liddle.jsx';
+import {addSampleData} from "./services/sampleDataService.js";
 
 
 function Item({ name, onRemove }) {
@@ -22,6 +23,23 @@ function Home() {
     const [produits, setProduits] = useState([]);
     const [newProduct, setNewProduit] = useState('');
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        async function initData() {
+        try {
+            await addSampleData()
+                .then(() => {
+                    console.log('Exemples de données ajoutés avec succès');
+                })
+                .catch((error) => {
+                    console.error('Erreur lors de l\'ajout des exemples de données:', error);
+                }, []);
+            } catch (error) {
+            console.error('Erreur lors de l\'initialisation des données:', error);
+        }
+        } initData();
+    }, []);
+
 
     useEffect(() => {
         async function fetchProduits() {
@@ -102,6 +120,8 @@ function Home() {
         </div>
     );
 }
+
+
 
 // Composant principal de l'application
 function App() {
