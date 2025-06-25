@@ -5,7 +5,7 @@ import Tabs from './components/Tabs.jsx';
 import 'bulma/css/bulma.min.css';
 import Hypercacher from './components/Hypercacher.jsx';
 import Auchan from './components/Auchan.jsx';
-import Liddle from './components/Liddle.jsx';
+import Lidl from './components/Lidl.jsx';
 import {addSampleData} from "./services/sampleDataService.js";
 
 
@@ -125,7 +125,7 @@ function Home() {
 
 // Composant principal de l'application
 function App() {
-    const tabs = ['Hypercacher', 'Auchan', 'Liddle'];
+    const tabs = ['Hypercacher', 'Auchan', 'Lidl'];
 
     return (
         <Router>
@@ -136,7 +136,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/hypercacher" element={<Hypercacher />} />
                         <Route path="/auchan" element={<Auchan />} />
-                        <Route path="/liddle" element={<Liddle />} />
+                        <Route path="/lidl" element={<Lidl />} />
                     </Routes>
                 </div>
             </div>

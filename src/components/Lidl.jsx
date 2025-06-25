@@ -1,14 +1,14 @@
 import { usePriceComparison } from '../hooks/usePriceComparison';
 
-const Liddle = () => {
-    const { storeProducts, isLoading, error, addSampleData } = usePriceComparison('Liddle');
+const Lidl = () => {
+    const { storeProducts, isLoading, error, addSampleData } = usePriceComparison('Lidl');
 
     if (isLoading) return <div>Chargement des produits...</div>;
     if (error) return <div>Erreur: {error}</div>;
 
     return (
         <div style={{ width: '100%' }}>
-            <h2 className="title">Liddle - Meilleurs prix</h2>
+            <h2 className="title">Lidl - Meilleurs prix</h2>
             
             {storeProducts.length > 0 ? (
                 <div className="box">
@@ -54,4 +54,4 @@ const Liddle = () => {
     );
 };
 
-export default Liddle;
+export default Lidl;

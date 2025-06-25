@@ -1,46 +1,44 @@
 import { createClient } from '@supabase/supabase-js';
 
+// Récupération des variables d'environnement
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 
+// Vérification des variables d'environnement
 if (!supabaseUrl || !supabaseKey) {
-    throw new Error('VITE_SUPABASE_URL or VITE_SUPABASE_KEY is missing in environment variables');
+    throw new Error('Les variables VITE_SUPABASE_URL et VITE_SUPABASE_KEY sont requises');
 }
 
-// Utilisation d'un singleton pour éviter plusieurs instances
-// Configuration des options globales pour inclure les en-têtes d'autorisation
-const supabaseOptions = {
-    global: {
-        headers: {
-            'apikey': supabaseKey,
-            'Authorization': `Bearer ${supabaseKey}`
-        }
+// Création du client Supabase avec une configuration minimale
+const supabaseClient = createClient(supabaseUrl, supabaseKey, {
+    auth: {
+        autoRefreshToken: false,
+        persistSession: false
     }
-};
+});
 
-// Création du client Supabase avec les options
-const supabaseClient = createClient(supabaseUrl, supabaseKey, supabaseOptions);
-
-export  default supabaseClient ;
+export default supabaseClient;
 export { supabaseClient };
 
 export async function insertProduits(produit) {
-        try {
-            const { data, error } = await supabaseClient
-                .from('produits')
-                .insert([produit])
-                .select();
+    try {
+        console.log('Tentative d\'insertion du produit:', produit);
+        const { data, error } = await supabaseClient
+            .from('produits')
+            .insert([produit])
+            .select();
 
-            if (error) {
-                console.error('Erreur lors de l\'insertion des produits:', error);
-                return { error };
-            }
-            console.log('Produits insérés avec succès:', data);
-            return { data };
-        } catch (error) {
-            console.error('Erreur inattendue:', error);
+        if (error) {
+            console.error('Erreur lors de l\'insertion des produits:', error);
             return { error };
         }
+        
+        console.log('Produits insérés avec succès:', data);
+        return { data };
+    } catch (error) {
+        console.error('Erreur inattendue lors de l\'insertion:', error);
+        return { error };
+    }
 }
 // Fonction pour lire les produits
 export async function readProduits() {

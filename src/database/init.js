@@ -65,7 +65,7 @@ export async function addTestData() {
     const { data: stores, error: storeError } = await supabaseClient
         .from('enseignes')
         .insert([
-            { nom: 'Liddle' },
+            { nom: 'Lidl' },
             { nom: 'Auchan' },
             { nom: 'Hypercacher' }
         ])
@@ -83,7 +83,7 @@ export async function addTestData() {
             volume: 1,
             categorie: 'Fruits',
             prices: [
-                { magasin_id: stores[0].id, prix: 1.99 },  // Liddle
+                { magasin_id: stores[0].id, prix: 1.99 },  // Lidl
                 { magasin_id: stores[1].id, prix: 2.49 },  // Auchan
                 { magasin_id: stores[2].id, prix: 2.99 }   // Hypercacher
             ]

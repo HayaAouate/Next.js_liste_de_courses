@@ -87,7 +87,7 @@ USING (true);
 
 -- Insertion des enseignes de test
 INSERT INTO public.enseignes (nom) VALUES 
-('Liddle'),
+('Lidl'),
 ('Auchan'),
 ('Hypercacher')
 ON CONFLICT (nom) DO NOTHING;
@@ -108,13 +108,13 @@ SELECT
     p.id,
     e.id,
     CASE 
-        WHEN e.nom = 'Liddle' AND p.nom = 'Pommes Golden' THEN 1.99
+        WHEN e.nom = 'Lidl' AND p.nom = 'Pommes Golden' THEN 1.99
         WHEN e.nom = 'Auchan' AND p.nom = 'Pommes Golden' THEN 2.49
         WHEN e.nom = 'Hypercacher' AND p.nom = 'Pommes Golden' THEN 2.99
-        WHEN e.nom = 'Liddle' AND p.nom = 'Bananes' THEN 2.49
+        WHEN e.nom = 'Lidl' AND p.nom = 'Bananes' THEN 2.49
         WHEN e.nom = 'Auchan' AND p.nom = 'Bananes' THEN 2.99
         WHEN e.nom = 'Hypercacher' AND p.nom = 'Bananes' THEN 3.49
-        WHEN e.nom = 'Liddle' AND p.nom = 'Oranges' THEN 2.99
+        WHEN e.nom = 'Lidl' AND p.nom = 'Oranges' THEN 2.99
         WHEN e.nom = 'Auchan' AND p.nom = 'Oranges' THEN 3.49
         WHEN e.nom = 'Hypercacher' AND p.nom = 'Oranges' THEN 3.99
     END as prix
@@ -124,13 +124,13 @@ CROSS JOIN
     public.enseignes e
 WHERE 
     CASE 
-        WHEN e.nom = 'Liddle' AND p.nom = 'Pommes Golden' THEN 1.99
+        WHEN e.nom = 'Lidl' AND p.nom = 'Pommes Golden' THEN 1.99
         WHEN e.nom = 'Auchan' AND p.nom = 'Pommes Golden' THEN 2.49
         WHEN e.nom = 'Hypercacher' AND p.nom = 'Pommes Golden' THEN 2.99
-        WHEN e.nom = 'Liddle' AND p.nom = 'Bananes' THEN 2.49
+        WHEN e.nom = 'Lidl' AND p.nom = 'Bananes' THEN 2.49
         WHEN e.nom = 'Auchan' AND p.nom = 'Bananes' THEN 2.99
         WHEN e.nom = 'Hypercacher' AND p.nom = 'Bananes' THEN 3.49
-        WHEN e.nom = 'Liddle' AND p.nom = 'Oranges' THEN 2.99
+        WHEN e.nom = 'Lidl' AND p.nom = 'Oranges' THEN 2.99
         WHEN e.nom = 'Auchan' AND p.nom = 'Oranges' THEN 3.49
         WHEN e.nom = 'Hypercacher' AND p.nom = 'Oranges' THEN 3.99
     END IS NOT NULL

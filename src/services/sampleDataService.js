@@ -92,16 +92,23 @@ export async function addSampleData() {
         if (productsToAdd.length > 0) {
             const { data: newProducts, error: insertError } = await supabaseClient
                 .from('produits')
-                .insert(productsToAdd.map(({ prix, ...product }) => product))
+                .insert(productsToAdd.map(({  ...product }) => product))
                 .select();
                 
-            console.log('Nouveaux produits ajoutés:', newProducts);
             if (insertError) {
                 console.error('Erreur lors de l\'insertion des produits:', insertError);
+                throw new Error(`Échec de l'ajout des produits: ${insertError.message}`);
             }
+            
+            if (!newProducts || newProducts.length === 0) {
+                console.warn('Aucun nouveau produit n\'a été ajouté');
+                return [];
+            }
+            
+            console.log('Nouveaux produits ajoutés:', newProducts);
 
             // Ajouter les prix pour les nouveaux produits
-            if (newProducts && newProducts.length > 0) {
+            if (Array.isArray(newProducts) && newProducts.length > 0) {
                 // Créer un mapping entre les noms de produits et les nouveaux IDs
                 const productNameToId = {};
                 newProducts.forEach(prod => {
