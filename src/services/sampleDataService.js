@@ -3,7 +3,7 @@ import { supabaseClient } from '../lib/supabase';
 // Données d'exemple
 const SAMPLE_PRODUCTS = [
     { 
-        id: 100,
+        id: 9,
         nom: 'Pommes Golden',
         type: 'Fruits', 
         quantite: 1, 
@@ -17,7 +17,7 @@ const SAMPLE_PRODUCTS = [
             'Hypercacher': 2.99
         }
     },
-    {  id: 102,
+    {  id: 10,
         nom: 'Bananes', 
         type: 'Fruits', 
         quantite: 6, 
@@ -31,7 +31,7 @@ const SAMPLE_PRODUCTS = [
             'Hypercacher': 3.49
         }
     },
-    {  id: 103,
+    {  id: 11,
         nom: 'Oranges', 
         type: 'Fruits', 
         quantite: 4, 
